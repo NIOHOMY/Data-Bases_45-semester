@@ -1,0 +1,18 @@
+select now() as "Date";
+select last_name, department_id, salary, round(salary*1.15) as "New Salary" from employees;
+select employee_id, last_name from employees where substr(last_name, 2, 1) = 'a';
+select last_name, department_id, salary, round(salary*1.15) as "New Salary", round(salary*1.15) - salary as "Increase" from employees;
+select last_name, initcap(last_name) from employees where initcap(last_name) like 'A%' ORDER BY last_name;
+select first_name, last_name, round(extract(month from age(now(), hire_date))) from employees;
+select format('%1$s, earns %2$s monthly, but wants %3$s ', last_name, salary, salary*3) as "Dream Salary" from employees;
+select first_name, last_name, LPAD(salary::text, 15, '$') lpad_fn from employees;
+select format('%1$s, earns %2$s monthly, but wants %3$s ', UPPER(last_name), salary, salary*3) as "Dream Salary" from employees;
+select LOWER(first_name), UPPER(last_name), round(extract(month from age(now(), hire_date))) from employees;
+select first_name, last_name, RPAD(salary::text, 10, '0') lpad_fn from employees;
+select * from employees WHERE substr(last_name, 4, 1) != '' or substr(last_name, 4, 1) != ' ';
+select * from employees WHERE length(last_name) > 3;
+select first_name, trim(both 'K' from last_name), department_id, salary, employee_id, email, phone_number, hire_date, job_id, commission_pct, manager_id from employees;
+select * from employees where POSITION('in' in first_name) !=0;
+select first_name, replace(last_name, 'in', 'pm'), department_id, salary, employee_id, email, phone_number, hire_date, job_id, commission_pct, manager_id  from employees; 
+select * from employees where  INSTR(last_name, 'i', 1, 1) = 1;???
+select concat_ws(',', last_name,first_name,department_id, salary, employee_id, email, phone_number, hire_date, job_id, commission_pct, manager_id ) as "THE OUTPUT" from employees;

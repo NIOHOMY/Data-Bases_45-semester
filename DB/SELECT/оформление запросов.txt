@@ -1,0 +1,15 @@
+SELECT department_name
+  FROM departments
+except
+SELECT department_name, 
+       department_name, 
+       department_name, 
+       department_name, 
+       department_name, 
+       department_name, 
+       department_name
+  FROM departments
+ WHERE department_id in (SELECT department_id
+			   FROM employees
+                          WHERE job_id LIKE 'ST_CLERK')
+   AND ;

@@ -1,0 +1,20 @@
+/*1*/
+SELECT last_name, job_id, hire_date AS startdate, employee_id FROM employees;
+/*2*/
+SELECT DISTINCT job_id FROM employees WHERE department_id IS NOT NULL;
+/*3*/
+SELECT last_name "Employee", job_id "Job", hire_date "Hire date", employee_id "Emp #" FROM employees;
+/*4*/
+SELECT last_name||','||job_id "Employee and Title" FROM employees;
+/*5*/
+SELECT last_name "Employee " , salary*1.15 "Next Year Salary " FROM employees;
+/*6*/
+SELECT last_name "FIO" , salary*12 "annual salary" FROM employees;
+/*7*/
+SELECT last_name||'for the year received '||salary*12 "Total salary", salary ,COALESCE(salary,0) + COALESCE(commission_pct,0) AS "Premium salary"  FROM employees;
+/*8*/
+SELECT last_name||'’s salary is '||salary "Salary" FROM employees;
+/*9*/
+SELECT last_name||' has phone number '||phone_number "Telephone directory" FROM employees;
+/*10*/
+SELECT DISTINCT department_id FROM employees WHERE department_id IS NOT NULL;
