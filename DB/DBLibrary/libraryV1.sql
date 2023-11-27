@@ -24,12 +24,12 @@ DROP TABLE IF EXISTS authors;
 
 -- Проверка 
 /*
-SELECT * FROM authors;
-SELECT * FROM publishers;
-SELECT * FROM books;
-SELECT * FROM readers;
-SELECT * FROM issues;
-SELECT * FROM issuebook;
+SELECT * FROM library_schema.authors;
+SELECT * FROM library_schema.publishers;
+SELECT * FROM library_schema.books;
+SELECT * FROM library_schema.readers;
+SELECT * FROM library_schema.issues;
+SELECT * FROM library_schema.issuebook;
 */
 
 -- Создание таблицы publishers
