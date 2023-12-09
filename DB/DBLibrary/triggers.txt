@@ -17,6 +17,9 @@ EXECUTE FUNCTION decrease_books_number_of_examples();
 CREATE OR REPLACE FUNCTION increase_books_number_of_examples() 
 RETURNS TRIGGER AS $$
 BEGIN
+	IF OLD.returndate IS NOT NULL THEN
+        RAISE EXCEPTION 'Ошибка сдачи книги, книга уже была сдана ранее.';
+	END IF;
     IF NEW.returndate IS NOT NULL THEN
         UPDATE books
         SET number_of_examples = number_of_examples + 1
