@@ -14,3 +14,6 @@ UPDATE user_accounts
 SET role = 'manager'
 WHERE user_id = 2;
 
+UPDATE issuebook
+SET returndate = CURRENT_TIMESTAMP
+WHERE id = 2;
