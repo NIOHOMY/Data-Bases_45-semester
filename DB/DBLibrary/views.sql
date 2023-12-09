@@ -36,6 +36,19 @@ FROM issues
 INNER JOIN readers ON issues.reader_id = readers.reader_id
 WHERE is_confirmed = FALSE;
 
+CREATE OR REPLACE VIEW all_issues AS
+SELECT 
+    issues.issue_id,
+    issues.issue_date,
+    issues.return_date,
+    issues.is_confirmed,
+    issues.reader_id,
+	issues.price,
+    readers.first_name || ' ' || readers.last_name || ' ' || readers.patronymic AS reader_name
+    
+FROM issues
+INNER JOIN readers ON issues.reader_id = readers.reader_id
+
 CREATE OR REPLACE VIEW admins AS
 SELECT *
 FROM user_accounts
