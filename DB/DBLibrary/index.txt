@@ -1,0 +1,36 @@
+
+CREATE INDEX idx_issue_date ON issues (issue_date);
+
+
+CREATE OR REPLACE FUNCTION get_books_by_date_range(start_date TIMESTAMP, end_date TIMESTAMP)
+RETURNS TABLE (
+    issue_id INT,
+    issue_date TIMESTAMP,
+    return_date TIMESTAMP,
+    is_confirmed BOOLEAN,
+    reader_id INT,
+    price NUMERIC,
+    reader_name TEXT
+) AS $$
+BEGIN
+    RETURN QUERY
+    SELECT 
+    issues.issue_id,
+    issues.issue_date,
+    issues.return_date,
+    issues.is_confirmed,
+    issues.reader_id,
+	issues.price,
+    readers.first_name || ' ' || readers.last_name || ' ' || readers.patronymic AS reader_name
+    
+	FROM issues
+	INNER JOIN readers ON issues.reader_id = readers.reader_id
+    WHERE issues.issue_date >= start_date AND issues.issue_date <= end_date;
+END;
+$$ LANGUAGE plpgsql;
+
+
+/*
+SELECT *
+FROM get_books_by_date_range('2023-12-15', '2023-12-17');
+*/

@@ -1,0 +1,33 @@
+CREATE OR REPLACE FUNCTION decrease_books_number_of_examples() 
+RETURNS TRIGGER AS $$
+BEGIN
+    UPDATE books
+    SET number_of_examples = number_of_examples - 1
+    WHERE book_id = NEW.book_id;
+    
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER decrease_books_number_of_examples_trigger
+AFTER INSERT ON issuebook
+FOR EACH ROW
+EXECUTE FUNCTION decrease_books_number_of_examples();
+
+CREATE OR REPLACE FUNCTION increase_books_number_of_examples() 
+RETURNS TRIGGER AS $$
+BEGIN
+    IF NEW.returndate IS NOT NULL THEN
+        UPDATE books
+        SET number_of_examples = number_of_examples + 1
+        WHERE book_id = OLD.book_id;
+    END IF;
+    
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER increase_books_number_of_examples_trigger
+BEFORE UPDATE ON issuebook
+FOR EACH ROW
+EXECUTE FUNCTION increase_books_number_of_examples();
