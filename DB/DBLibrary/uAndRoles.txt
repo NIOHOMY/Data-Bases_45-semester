@@ -1,0 +1,65 @@
+
+CREATE USER observer WITH PASSWORD '0';
+CREATE USER librarian WITH PASSWORD '0';
+CREATE USER manager WITH PASSWORD '0';
+
+CREATE ROLE observer_role;
+CREATE ROLE librarian_role;
+CREATE ROLE manager_role;
+
+
+GRANT observer_role TO observer;
+GRANT librarian_role TO librarian;
+GRANT manager_role TO manager;
+
+
+GRANT USAGE ON SCHEMA library_schema TO observer_role;
+GRANT SELECT ON library_schema.authors, 
+				library_schema.publishers, 
+				library_schema.books 
+			TO observer_role;
+
+GRANT USAGE ON SCHEMA library_schema TO librarian_role;
+GRANT SELECT, INSERT, UPDATE ON library_schema.authors, 
+								library_schema.publishers, 
+								library_schema.books, 
+								library_schema.readers, 
+								library_schema.issues, 
+								library_schema.issuebook 
+							TO librarian_role;
+
+GRANT USAGE ON SCHEMA library_schema TO manager_role;
+GRANT SELECT, INSERT, UPDATE ON library_schema.authors, 
+								library_schema.publishers, 
+								library_schema.books, 
+								library_schema.readers, 
+								library_schema.issues, 
+								library_schema.issuebook,
+								library_schema.user_accounts 
+							TO manager_role;
+
+
+GRANT CONNECT ON DATABASE pakhomova_pv_db TO observer, librarian, manager;
+
+
+
+
+REVOKE ALL PRIVILEGES ON ALL TABLES IN SCHEMA library_schema FROM observer_role, librarian_role, manager_role;
+REVOKE ALL PRIVILEGES ON SCHEMA library_schema FROM observer_role, librarian_role, manager_role;
+REVOKE ALL PRIVILEGES ON DATABASE pakhomova_pv_db FROM observer, librarian, manager;
+
+
+REVOKE observer_role FROM observer;
+REVOKE librarian_role FROM librarian;
+REVOKE manager_role FROM manager;
+
+
+DROP ROLE observer_role;
+DROP ROLE librarian_role;
+DROP ROLE manager_role;
+
+
+DROP USER observer;
+DROP USER librarian;
+DROP USER manager;
+
